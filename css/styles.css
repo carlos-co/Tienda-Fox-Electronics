@@ -1,0 +1,14 @@
+.calc__product.container,
+.calc__result.container
+{
+	max-width: 600px;
+}
+.container {
+	max-width: 900px;
+}
+
+.calc__product--button {
+	max-width: 130px;
+	width: 100%;
+	margin: 0 auto;
+}
