@@ -14,6 +14,7 @@ calcResultPrice = document.getElementById('calc__result--price')
 calcResultProfit = document.getElementById('calc__result--profit')
 calcResultTax = document.getElementById('calc__result--tax')
 calcResultTotal = document.getElementById('calc__result--total')
+calcResultSubtotal = document.getElementById('calc__result--subtotal')
 calcResultTable = document.getElementById('calc__result')
 calcProductAlert = document.getElementById('calc__product--alert')
 
@@ -21,7 +22,8 @@ calcProductButton.addEventListener('click', calcProduct)
 
 const calcTax = (price) => price * TAXES
 const calcProfit = (price, profit) => price * (profit / 100)
-const calcTotal = (price, profit, tax) => price + profit + tax
+const calcTotal = (price, tax) => price + tax
+
 const profitValid = (profit) => {
 	if (profit >= 0 && profit <= 99) {
 		return true
@@ -29,7 +31,6 @@ const profitValid = (profit) => {
 	else {
 		return false
 	}
-
 }
 
 function calcProduct() {
@@ -41,19 +42,23 @@ function calcProduct() {
 
 	if (!isNaN(calcProduct.price) && profitValid(calcProduct.profit)) {
 		calcProduct.totalProfit = calcProfit(calcProduct.price, calcProduct.profit)
-		calcProduct.totalTax = calcTax(calcProduct.price)
+		calcProduct.subtotal = calcProduct.price + calcProduct.totalProfit
+		calcProduct.totalTax = calcTax(calcProduct.subtotal)
 
-		const formatter = new Intl.NumberFormat('en-US', {
+		const formatter = new Intl.NumberFormat('es-COP', {
 		  style: 'currency',
 		  currency: 'COP',
-		  minimumFractionDigits: 0
+		  minimumFractionDigits: 0,
+		  maximumFractionDigits: 0
 		})
 
+		calcProduct.total = formatter.format(calcTotal(calcProduct.subtotal, calcProduct.totalTax))
 
 		calcResultPrice.textContent = formatter.format(calcProduct.price)
 		calcResultProfit.textContent = formatter.format(calcProduct.totalProfit) 
+		calcResultSubtotal.textContent = formatter.format(calcProduct.subtotal)
 		calcResultTax.textContent = formatter.format(calcProduct.totalTax)
-		calcResultTotal.textContent = formatter.format(calcTotal(calcProduct.price, calcProduct.totalProfit, calcProduct.totalTax))
+		calcResultTotal.textContent = calcProduct.total
 
 		calcResultTable.classList.remove('invisible');
 		calcResultTable.classList.add('visible');

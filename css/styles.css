@@ -1,3 +1,7 @@
+html,
+body {
+	font-family: 'Open Sans', sans-serif;
+}
 .calc__product.container,
 .calc__result.container
 {
@@ -11,4 +15,7 @@
 	max-width: 130px;
 	width: 100%;
 	margin: 0 auto;
+}
+.calc__result{
+	text-align: center;
 }
