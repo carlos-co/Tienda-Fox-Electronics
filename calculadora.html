@@ -32,7 +32,7 @@
 	        </a>
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	          <a class="dropdown-item" href="calculadora.html">Calculadora Ventas</a>
-	          <a class="dropdown-item" href="#">Calculadora Resistencias</a>
+	          <a class="dropdown-item" href="calculadora-resistencias.html">Calculadora Resistencias</a>
 	        </div>
 	      </li>
 	    </ul>
@@ -47,7 +47,7 @@
 
 	  <!--  form content -->
 	  <div id="calc__product--alert" class="alert alert-danger d-none" role="alert">
-	    Debe de ingresar un valor de producto en pesos COP y una utilidad en % valido. Intente de nuevo.
+	    Debe de ingresar un valor de producto en pesos COP y una utilidad en un % valido. Intente de nuevo.
 	  </div>
 	  <form class="calc__product container mt-5 d-flex flex-column justify-content-center" id="calc__product">
 	    <div class="form-group">
@@ -59,7 +59,7 @@
 	      <label for="profit">Ingrese el percentage (%) de utilidad</label>
 	      <input type="number" class="form-control" id="calc__product--profit" placeholder="Utilidad" required>
 	    </div>
-	    <button type="button" class="btn btn-primary calc__product--button" id="calc__product--button">Calcular Total</button>
+	    <button type="button" class="btn btn-primary calc__product--button" id="calc__product--button" onClick="calcProduct()">Calcular Total</button>
 	  </form>
 	  <!-- / form content -->
 
