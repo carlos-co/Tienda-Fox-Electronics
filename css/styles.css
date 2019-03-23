@@ -11,11 +11,18 @@ body {
 	max-width: 900px;
 }
 
-.calc__button {
+.calc__button,
+.product__button
+ {
 	max-width: 130px;
 	width: 100%;
 	margin: 0 auto;
 }
+
+.product__button
+ {
+ 	max-width: 180px;
+ }	
 .calc__result{
 	text-align: center;
 }

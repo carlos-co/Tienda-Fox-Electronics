@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Calculadora Resistencias |Tienda Fox electronics</title>
+    <title>Actualizar Producto |Tienda Fox electronics</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -20,7 +20,7 @@
 	      <li class="nav-item">
 	        <a class="nav-link disabled" href="#">Administrador</a>
 	      </li>
-	      <li class="nav-item dropdown">
+	      <li class="nav-item dropdown active">
 	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	          Inventario
 	        </a>
@@ -34,7 +34,7 @@
 	      <li class="nav-item">
 	        <a class="nav-link" href="ventas.html">Ventas</a>
 	      </li>
-	      <li class="nav-item dropdown active">
+	      <li class="nav-item dropdown">
 	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	          Utilidades
 	        </a>
@@ -46,63 +46,39 @@
 	    </ul>
 	  </div>
 	</nav>
+
 	<!-- / Navbar content -->
 
 	<div class="container mt-4">
-	  <h1>Calculadora Resistencias</h1>
-	  <p class="mt-3">Seleccione el color de cada banda en la resistencia</p> 
-	  <div id="calc__product--alert" class="alert alert-danger d-none" role="alert">
-	    Debe de ingresar un valor de color por cada banda en la resistencia. Intente de nuevo.
+	  <h1>Actualizar Producto</h1>
+	  <p class="mt-3">Ingrese la información del producto</p> 
+	  <div id="product--alert" class="alert alert-danger d-none" role="alert">
 	  </div>
-	  <h4 class="calc__resistances--result invisible" id="calc__resistances--result">El valor de la resistencia es de: <strong id="calc__resistances--resultValue"></strong></h4>
+
 	  <!--  form content -->
-	  <form class="calc__product container mt-2 d-flex flex-column justify-content-center" id="calc__product">
+	  <form class="calc__product container mt-2 mb-5 d-flex flex-column justify-content-center">
 	    <div class="form-group">
-	    	<label class="my-1 mr-2" for="inlineFormCustomSelectPref">1.º Banda</label>
-	      	<select id="calc__resistances--firstBand" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-		        <option selected>Seleccione un color...</option>
-		        <option value="0">Negro</option>
-		        <option value="1">Marrón</option>
-		        <option value="2">Rojo</option>
-		        <option value="3">Naranja</option>
-		        <option value="4">Amarillo</option>
-		        <option value="5">Verde</option>
-		        <option value="6">Azul</option>
-		        <option value="7">Violeta</option>
-		        <option value="8">Gris</option>
-		        <option value="9">Blanco</option>
-	      	</select>
-  	    	<label class="my-1 mr-2" for="inlineFormCustomSelectPref">2.º Banda</label>
-  	      	<select id="calc__resistances--secondBand" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-  		        <option selected>Seleccione un color...</option>
-  		        <option value="0">Negro</option>
-  		        <option value="1">Marrón</option>
-  		        <option value="2">Rojo</option>
-  		        <option value="3">Naranja</option>
-  		        <option value="4">Amarillo</option>
-  		        <option value="5">Verde</option>
-  		        <option value="6">Azul</option>
-  		        <option value="7">Violeta</option>
-  		        <option value="8">Gris</option>
-  		        <option value="9">Blanco</option>
-  	      	</select>
-  	    	<label class="my-1 mr-2" for="inlineFormCustomSelectPref">3.º Banda</label>
-  	      	<select id="calc__resistances--thirdBand" class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-  	      		<option selected>Seleccione un color...</option>
-  	      		<option value="0">Negro</option>
-  	      		<option value="1">Marrón</option>
-  	      		<option value="2">Rojo</option>
-  	      		<option value="3">Naranja</option>
-  	      		<option value="4">Amarillo</option>
-  	      		<option value="5">Verde</option>
-  	      		<option value="6">Azul</option>
-  	      		<option value="7">Violeta</option>
-  	      		<option value="8">Gris</option>
-  	      		<option value="9">Blanco</option>
-  	      	</select>
+	    	<label class="my-1 mr-2" for="inlineFormCustomSelectPref">Código</label>
+	    	<input type="text" class="form-control" aria-describedby="value" placeholder="Código de Producto" required>	      
+	    </div>
+	    <div class="form-group">
+	    	<label class="my-1 mr-2" for="inlineFormCustomSelectPref">Nombre</label>
+	    	<input type="text" class="form-control" aria-describedby="value" placeholder="Nombre de Producto" required>	      
+	    </div>
+	    <div class="form-group">
+	    	<label class="my-1 mr-2" for="inlineFormCustomSelectPref">Marca</label>
+	    	<input type="text" class="form-control" aria-describedby="value" placeholder="Marca de Producto" required>	      
+	    </div>
+	    <div class="form-group">
+	    	<label class="my-1 mr-2" for="inlineFormCustomSelectPref">Precio de Compra</label>
+	    	<input type="text" class="form-control" aria-describedby="value" placeholder="Cantidad Comprada" required>	      
+	    </div>
+	    <div class="form-group">
+	    	<label class="my-1 mr-2" for="inlineFormCustomSelectPref">Cantidad</label>
+	    	<input type="text" class="form-control" aria-describedby="value" placeholder="Precio de Compra" required>	      
 	    </div>
 
-	    <button type="button" class="btn btn-primary calc__button" onClick="calcResistances()">Calcular</button>
+	    <button type="submit" class="btn btn-primary product__button">Actualizar Producto</button>
 	  </form>
 	  <!-- / form content -->
 
