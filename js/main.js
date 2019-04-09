@@ -155,28 +155,61 @@ function calcResistances() {
 			resistanceValue = parseInt(numbersAsString)
 		}
 
-		// resistancesThirdBand
-		if (resistancesThirdBand === 0) {
-			resistanceValue = (resistanceValue * RESISTANCES.thirdBand.black.value) + RESISTANCES.thirdBand.black.label
-		}else if (resistancesThirdBand === 1) {
-			resistanceValue = (resistanceValue * RESISTANCES.thirdBand.brown.value) + RESISTANCES.thirdBand.brown.label
-		}else if (resistancesThirdBand === 2) {
-			resistanceValue = (resistanceValue * RESISTANCES.thirdBand.red.value) + RESISTANCES.thirdBand.red.label
-		}else if (resistancesThirdBand === 3) {
-			resistanceValue = (resistanceValue * RESISTANCES.thirdBand.orange.value) + RESISTANCES.thirdBand.orange.label
-		}else if (resistancesThirdBand === 4) {
-			resistanceValue = (resistanceValue * RESISTANCES.thirdBand.yellow.value) + RESISTANCES.thirdBand.yellow.label
-		}else if (resistancesThirdBand === 5) {
-			resistanceValue = (resistanceValue * RESISTANCES.thirdBand.green.value) + RESISTANCES.thirdBand.green.label
-		}else if (resistancesThirdBand === 6) {
-			resistanceValue = (resistanceValue * RESISTANCES.thirdBand.blue.value) + RESISTANCES.thirdBand.blue.label
-		}else if (resistancesThirdBand === 7) {
-			resistanceValue = (resistanceValue * RESISTANCES.thirdBand.violet.value) + RESISTANCES.thirdBand.violet.label
-		}else if (resistancesThirdBand === 8) {
-			resistanceValue = (resistanceValue * RESISTANCES.thirdBand.gray.value) + RESISTANCES.thirdBand.gray.label
-		}else if (resistancesThirdBand === 9) {
-			resistanceValue = (resistanceValue * RESISTANCES.thirdBand.white.value) + RESISTANCES.thirdBand.white.label
+		switch (resistancesThirdBand) {
+		  case 0:
+		  	resistanceValue = (resistanceValue * RESISTANCES.thirdBand.black.value) + RESISTANCES.thirdBand.black.label
+		    break;
+		  case 1:
+		    resistanceValue = (resistanceValue * RESISTANCES.thirdBand.brown.value) + RESISTANCES.thirdBand.brown.label
+		    break;
+		  case 2:
+		    resistanceValue = (resistanceValue * RESISTANCES.thirdBand.red.value) + RESISTANCES.thirdBand.red.label
+		    break;
+		  case 3:
+		    resistanceValue = (resistanceValue * RESISTANCES.thirdBand.orange.value) + RESISTANCES.thirdBand.orange.label
+		    break;
+		  case 4:
+		    resistanceValue = (resistanceValue * RESISTANCES.thirdBand.yellow.value) + RESISTANCES.thirdBand.yellow.label
+		    break;
+		  case 5:
+		    resistanceValue = (resistanceValue * RESISTANCES.thirdBand.green.value) + RESISTANCES.thirdBand.green.label
+		    break;
+		  case 6:
+		    resistanceValue = (resistanceValue * RESISTANCES.thirdBand.blue.value) + RESISTANCES.thirdBand.blue.label
+		    break;		    		    
+		  case 7:
+		    resistanceValue = (resistanceValue * RESISTANCES.thirdBand.violet.value) + RESISTANCES.thirdBand.violet.label
+		    break;
+		  case 8:
+		    resistanceValue = (resistanceValue * RESISTANCES.thirdBand.gray.value) + RESISTANCES.thirdBand.gray.label
+		    break;
+		  case 9:
+		    resistanceValue = (resistanceValue * RESISTANCES.thirdBand.white.value) + RESISTANCES.thirdBand.white.label
+		    break;
 		}
+
+		// resistancesThirdBand
+		// if (resistancesThirdBand === 0) {
+		// 	resistanceValue = (resistanceValue * RESISTANCES.thirdBand.black.value) + RESISTANCES.thirdBand.black.label
+		// }else if (resistancesThirdBand === 1) {
+		// 	resistanceValue = (resistanceValue * RESISTANCES.thirdBand.brown.value) + RESISTANCES.thirdBand.brown.label
+		// }else if (resistancesThirdBand === 2) {
+		// 	resistanceValue = (resistanceValue * RESISTANCES.thirdBand.red.value) + RESISTANCES.thirdBand.red.label
+		// }else if (resistancesThirdBand === 3) {
+		// 	resistanceValue = (resistanceValue * RESISTANCES.thirdBand.orange.value) + RESISTANCES.thirdBand.orange.label
+		// }else if (resistancesThirdBand === 4) {
+		// 	resistanceValue = (resistanceValue * RESISTANCES.thirdBand.yellow.value) + RESISTANCES.thirdBand.yellow.label
+		// }else if (resistancesThirdBand === 5) {
+		// 	resistanceValue = (resistanceValue * RESISTANCES.thirdBand.green.value) + RESISTANCES.thirdBand.green.label
+		// }else if (resistancesThirdBand === 6) {
+		// 	resistanceValue = (resistanceValue * RESISTANCES.thirdBand.blue.value) + RESISTANCES.thirdBand.blue.label
+		// }else if (resistancesThirdBand === 7) {
+		// 	resistanceValue = (resistanceValue * RESISTANCES.thirdBand.violet.value) + RESISTANCES.thirdBand.violet.label
+		// }else if (resistancesThirdBand === 8) {
+		// 	resistanceValue = (resistanceValue * RESISTANCES.thirdBand.gray.value) + RESISTANCES.thirdBand.gray.label
+		// }else if (resistancesThirdBand === 9) {
+		// 	resistanceValue = (resistanceValue * RESISTANCES.thirdBand.white.value) + RESISTANCES.thirdBand.white.label
+		// }
 
 		calcResistancesResultValue.textContent = resistanceValue
 		calcResistancesResult.classList.remove('invisible');
