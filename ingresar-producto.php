@@ -1,12 +1,30 @@
 <?php
 // Config File
 require 'config.php';
+
+if (isset($_POST['code']) && isset($_POST['name']) && isset($_POST['brand']) && isset($_POST['price']) && isset($_POST['quantity']) ) {
+
+	// Create connection
+	$conn = new mysqli($servername, $username, $password, $dbname);
+	// Check connection
+	if ($conn->connect_error) {
+	    die("Connection failed: " . $conn->connect_error);
+	}
+
+	$code = $_POST ['code'];
+	$name = $_POST ['name'];
+	$brand = $_POST ['brand'];
+	$price = $_POST ['price'];
+	$quantity = $_POST ['quantity'];
+
+	$sql = "INSERT INTO $table (code, name, brand, price, quantity)
+	VALUES ('$code', '$name', '$brand', '$price', '$quantity')";
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Crear Tabla en Base de Datos</title>
+    <title>Ingresar Producto |Tienda Fox electronics</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -21,7 +39,7 @@ require 'config.php';
 	  </button>
 	  <div class="collapse navbar-collapse" id="navbarNavDropdown">
 	    <ul class="navbar-nav">
-	    	<li class="nav-item dropdown active">
+	    	<li class="nav-item dropdown">
 	    	  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	    	    Administrador
 	    	  </a>
@@ -31,7 +49,7 @@ require 'config.php';
 	    	    <a class="dropdown-item" href="backup-database.php">Backup Base de Datos</a>
 	    	  </div>
 	    	</li>
-	      <li class="nav-item dropdown">
+	      <li class="nav-item dropdown active">
 	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	          Inventario
 	        </a>
@@ -57,46 +75,35 @@ require 'config.php';
 	    </ul>
 	  </div>
 	</nav>
+
 	<!-- / Navbar content -->
 
-	<div class="container  mt-4">
-	  <h1>Crear Tabla en Base de Datos</h1>
+	<div class="container mt-4">
+
 	  <?php 
+	  		//VALUES (023, Tenis, Nike, 120000, 1)
 
-	  	// Create connection
-	  	$conn = new mysqli($servername, $username, $password, $dbname);
-	  	// Check connection
-	  	if ($conn->connect_error) {
-	  		?>
-	  		<p><?php die("La conexión al servidor falló: " . $conn->connect_error); ?></p>
-	  	    <?php
-	  	} 
+	  		if ($conn->query($sql) === TRUE) {	  		    
+	  		   	?>
+	  		   	<h1><?php echo "Producto Guardado"; ?></h1>
+	  		   	<p>Se guardo el producto con código: <strong><?php echo $code ?></strong> en la base de datos</p>
+	  		   	<?php 
+	  		} else {
+	  			?>
+	  			<h1><?php echo "Error: " . $sql . "<br>" . $conn->error; ?></h1>
+	  			<?php	  		    
+	  		}
 
-	  	// sql to create table
-	  	$sql = "CREATE TABLE tabla33 (
-	  	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
-	  	code VARCHAR(30) NOT NULL,
-	  	name VARCHAR(30) NOT NULL,
-	  	brand VARCHAR(30) NOT NULL,
-	  	price INT(10) NOT NULL,
-	  	quantity INT(11) NOT NULL,
-	  	reg_date TIMESTAMP
-	  	)";
+	  		$conn->close();
 
-	  	if ($conn->query($sql) === TRUE) {
-	  		?>
-	  		<p><?php echo "Tabla creada con éxito en base de datos"; ?></p>
-	  		<?php
-	  	    
-	  	} else {
-	  		?>
-	  		<p><?php echo "Error al crear la tabla: " . $conn->error; ?></p>
-	  	    <?php
 	  	}
-
-	  	$conn->close();
-	  ?>
-	  
+	  	else {
+	  		?>
+	  		<h1>Error al enviar el formulario</h1>
+	  		<p>Verifique que ha completado todos los campos</p>
+	  		<?php	  		
+	  	}
+	  ?>				 
 	</div>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

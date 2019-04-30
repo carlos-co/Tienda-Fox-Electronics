@@ -1,7 +1,6 @@
 <?php
-$servername = "programacion-sitios-mysql-server";
-$username = "root";
-$password = "12345678";
+// Config File
+require 'config.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">

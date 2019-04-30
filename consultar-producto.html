@@ -63,10 +63,10 @@
 	  </div>
 
 	  <!--  form content -->
-	  <form class="calc__product container mt-2 mb-5 d-flex flex-column justify-content-center">
+	  <form action="consultar-producto.php"class="calc__product container mt-2 mb-5 d-flex flex-column justify-content-center" method="post">
 	    <div class="form-group">
 	    	<label class="my-1 mr-2" for="inlineFormCustomSelectPref">Código</label>
-	    	<input type="text" class="form-control" aria-describedby="value" placeholder="Código de Producto" required>	      
+	    	<input name="code" type="text" class="form-control" aria-describedby="value" placeholder="Código de Producto" required>	      
 	    </div>
 	    <button type="submit" class="btn btn-primary product__button">Consultar Producto</button>
 	  </form>

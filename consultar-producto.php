@@ -1,12 +1,22 @@
 <?php
 // Config File
 require 'config.php';
+
+if (isset($_POST['code'])) {
+
+	// Create connection
+	$conn = new mysqli($servername, $username, $password, $dbname);
+	// Check connection
+	if ($conn->connect_error) {
+	    die("Connection failed: " . $conn->connect_error);
+	} 
+	$code = $_POST ['code'];
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Crear Tabla en Base de Datos</title>
+    <title>Consultar Producto |Tienda Fox electronics</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -21,7 +31,7 @@ require 'config.php';
 	  </button>
 	  <div class="collapse navbar-collapse" id="navbarNavDropdown">
 	    <ul class="navbar-nav">
-	    	<li class="nav-item dropdown active">
+	    	<li class="nav-item dropdown">
 	    	  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	    	    Administrador
 	    	  </a>
@@ -31,7 +41,7 @@ require 'config.php';
 	    	    <a class="dropdown-item" href="backup-database.php">Backup Base de Datos</a>
 	    	  </div>
 	    	</li>
-	      <li class="nav-item dropdown">
+	      <li class="nav-item dropdown active">
 	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	          Inventario
 	        </a>
@@ -57,50 +67,70 @@ require 'config.php';
 	    </ul>
 	  </div>
 	</nav>
+
 	<!-- / Navbar content -->
 
-	<div class="container  mt-4">
-	  <h1>Crear Tabla en Base de Datos</h1>
+	<div class="container mt-4">
 	  <?php 
+	  	$sql = "SELECT code, name, brand, price, quantity FROM $table WHERE code = '$code'";
+	  		$result = $conn->query($sql);
 
-	  	// Create connection
-	  	$conn = new mysqli($servername, $username, $password, $dbname);
-	  	// Check connection
-	  	if ($conn->connect_error) {
-	  		?>
-	  		<p><?php die("La conexión al servidor falló: " . $conn->connect_error); ?></p>
-	  	    <?php
-	  	} 
+	  		if ($result->num_rows > 0) {
+	  			$row = $result->fetch_assoc();
+	  			$price_format = number_format($row["price"],0,",",",");
+	  			?>	  			
+	  			<h1>Resultado de la Búsqueda</h1>
+	  			<table class="calc__result container table mt-5 mb-5">
+	  			  <thead class="thead-dark">
+	  			    <tr>
+	  			      <th scope="col">Producto</th>
+	  			      <th scope="col">Información</th>
+	  			    </tr>
+	  			  </thead>
+	  			  <tbody>
+	  			    <tr>
+	  			      <td>Código:</td>
+	  			      <td><?php echo $row["code"]; ?></td>
+	  			    </tr>
+	  			    <tr>
+	  			      <td>Nombre:</td>
+	  			      <td><?php echo $row["name"]; ?></td>
+	  			    </tr>
+	  			    <tr>
+	  			      <td>Marca:</td>
+	  			      <td><?php echo $row["brand"]; ?></td>
+	  			    </tr>
+	  			    <tr>
+	  			      <td>Precio:</td>
+	  			      <td>$<?php echo $price_format; ?></td>
+	  			    </tr>
+	  			    <tr class="table-success">
+	  			      <td><strong>Cantidad:</strong></td>
+	  			      <td><strong><?php echo $row["quantity"]; ?></strong></td>
+	  			    </tr>
+	  			  </tbody>
+	  			</table>
+	  		<?php 
+	  		} else {
+	  			?>
+	  			<h1>Resultado de la Búsqueda</h1>
+	  		    <p>No se encontraron productos con el código: <strong><?php echo $code; ?></strong> </p>
+	  		<?php    
+	  		}
+	  		$conn->close();
 
-	  	// sql to create table
-	  	$sql = "CREATE TABLE tabla33 (
-	  	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
-	  	code VARCHAR(30) NOT NULL,
-	  	name VARCHAR(30) NOT NULL,
-	  	brand VARCHAR(30) NOT NULL,
-	  	price INT(10) NOT NULL,
-	  	quantity INT(11) NOT NULL,
-	  	reg_date TIMESTAMP
-	  	)";
-
-	  	if ($conn->query($sql) === TRUE) {
-	  		?>
-	  		<p><?php echo "Tabla creada con éxito en base de datos"; ?></p>
-	  		<?php
-	  	    
-	  	} else {
-	  		?>
-	  		<p><?php echo "Error al crear la tabla: " . $conn->error; ?></p>
-	  	    <?php
+	  	}
+	  	else {
+	  		echo "Error al enviar el formulario";
 	  	}
 
-	  	$conn->close();
-	  ?>
-	  
+	  ?>	
+
+	 
 	</div>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script src="js/main.js"></script>
 </body>
-</html>
+</html>	

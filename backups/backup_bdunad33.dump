@@ -24,12 +24,14 @@ DROP TABLE IF EXISTS `tabla33`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tabla33` (
   `id` int(6) unsigned NOT NULL AUTO_INCREMENT,
-  `firstname` varchar(30) NOT NULL,
-  `lastname` varchar(30) NOT NULL,
-  `email` varchar(50) DEFAULT NULL,
+  `code` varchar(30) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `brand` varchar(30) NOT NULL,
+  `price` int(10) NOT NULL,
+  `quantity` int(11) NOT NULL,
   `reg_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,6 +40,7 @@ CREATE TABLE `tabla33` (
 
 LOCK TABLES `tabla33` WRITE;
 /*!40000 ALTER TABLE `tabla33` DISABLE KEYS */;
+INSERT INTO `tabla33` VALUES (1,'001','nombre','KRK',20000,2,'2019-04-30 20:48:41'),(2,'001','nombre','KRK',20000,2,'2019-04-30 20:57:48'),(3,'23','Tenis','Nike',120000,1,'2019-04-30 21:12:37'),(4,'23','Tenis','Nike',120000,1,'2019-04-30 21:27:11'),(5,'6773','Parlantes','KRK',220000,2,'2019-04-30 21:30:20'),(6,'4553n','Speakers','KRK',220000,2,'2019-04-30 22:33:48'),(7,'sas','as','ff',442,32,'2019-04-30 22:38:53');
 /*!40000 ALTER TABLE `tabla33` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-29 23:24:44
+-- Dump completed on 2019-04-30 22:40:51

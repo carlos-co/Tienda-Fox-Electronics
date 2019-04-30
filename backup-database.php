@@ -1,16 +1,10 @@
 <?php 
-$servername = "programacion-sitios-mysql-server";
-$usernamename = "root";
-$passwordword = "12345678";
-$dbname = "bdunad33";
+// Config File
+require 'config.php';
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-$servername = 'bdunad33';
-$username = 'root';
-$password = '12345678';
-$servername = 'programacion-sitios-mysql-server';
 $dir = dirname(__FILE__) . '/backups/backup_bdunad33.dump';
 exec("mysqldump --user={$username} --password={$password} --host={$servername} {$dbname} --result-file={$dir} 2>&1", $output);
 //var_dump($output);
