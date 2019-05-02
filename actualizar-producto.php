@@ -2,7 +2,13 @@
 // Config File
 require 'config.php';
 
-if (isset($_POST['code'])) {
+if (isset($_POST['code']) && isset($_POST['name']) && isset($_POST['brand']) && isset($_POST['price']) && isset($_POST['quantity']) ) {
+
+	$code = $_POST ['code'];
+	$name = $_POST ['name'];
+	$brand = $_POST ['brand'];
+	$price = $_POST ['price'];
+	$quantity = $_POST ['quantity'];
 
 	// Create connection
 	$conn = new mysqli($servername, $username, $password, $dbname);
@@ -10,13 +16,14 @@ if (isset($_POST['code'])) {
 	if ($conn->connect_error) {
 	    die("Connection failed: " . $conn->connect_error);
 	} 
-	$code = $_POST ['code'];
+
+	$sql = "UPDATE $table SET name='$name', brand='$brand', price='$price', quantity='$quantity' WHERE code='$code'";	
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Consultar Producto |Tienda Fox electronics</title>
+    <title>Actualizar Producto |Tienda Fox electronics</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -73,69 +80,32 @@ if (isset($_POST['code'])) {
 
 	<div class="container mt-4">
 	  <?php 
-	  	$sql = "SELECT code, name, brand, price, quantity, reg_date FROM $table WHERE code = '$code'";
-	  		$result = $conn->query($sql);
-
-	  		if ($result->num_rows > 0) {
-	  			$row = $result->fetch_assoc();
-	  			$price_format = number_format($row["price"],0,",",",");
-	  			?>	  			
-	  			<h1>Resultado de la Búsqueda</h1>
-	  			<table class="calc__result container table mt-5 mb-5">
-	  			  <thead class="thead-dark">
-	  			    <tr>
-	  			      <th scope="col">Producto</th>
-	  			      <th scope="col">Información</th>
-	  			    </tr>
-	  			  </thead>
-	  			  <tbody>
-	  			    <tr>
-	  			      <td>Código:</td>
-	  			      <td><?php echo $row["code"]; ?></td>
-	  			    </tr>
-	  			    <tr>
-	  			      <td>Nombre:</td>
-	  			      <td><?php echo $row["name"]; ?></td>
-	  			    </tr>
-	  			    <tr>
-	  			      <td>Marca:</td>
-	  			      <td><?php echo $row["brand"]; ?></td>
-	  			    </tr>
-	  			    <tr>
-	  			      <td>Precio:</td>
-	  			      <td>$<?php echo $price_format; ?></td>
-	  			    </tr>
-	  			    <tr>
-	  			      <td>Ultima actualización:</td>
-	  			      <td><?php echo $row["reg_date"]; ?></td>
-	  			    </tr>
-	  			    <tr class="table-success">
-	  			      <td><strong>Cantidad:</strong></td>
-	  			      <td><strong><?php echo $row["quantity"]; ?></strong></td>
-	  			    </tr>
-	  			  </tbody>
-	  			</table>
-	  		<?php 
-	  		} else {
-	  			?>
-	  			<h1>Resultado de la Búsqueda</h1>
-	  		    <p>No se encontraron productos con el código: <strong><?php echo $code; ?></strong> </p>
-	  		<?php    
-	  		}
-	  		$conn->close();
-
+	  	if ($conn->query($sql) === TRUE) {
+	  		?>
+	  		<h1>Actualizar Producto</h1>
+	  		<p>Producto con codigo: <strong><?php echo $code; ?></strong> actualizado exitosamente</p>
+	  		<?php
+	  	} else {
+	  		?>
+	  		<h1>Se presento un error al actualizar Producto</h1>
+	  		<p>No fue posible actualizar el producto con código: <strong><?php echo $code; ?></strong> mas informacion: <?php echo $conn->error; ?> </p>
+	  		<?php
 	  	}
-	  	else {
-	  		echo "Error al enviar el formulario";
-	  	}
+
+	  	$conn->close();
+	  }
+	  else {
+	  	?>
+	  	<h1>Error al enviar el formulario</h1>
+	  	<p>Verifique que ha completado todos los campos</p>
+	  	<?php
+	  }
 
 	  ?>	
-
-	 
 	</div>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script src="js/main.js"></script>
 </body>
-</html>	
+</html>

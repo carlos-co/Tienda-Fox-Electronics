@@ -1,1 +1,0 @@
-administrador.php

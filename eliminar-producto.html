@@ -36,6 +36,7 @@
 	          <a class="dropdown-item" href="actualizar-producto.html">Actualizar Producto</a>
 	          <a class="dropdown-item" href="eliminar-producto.html">Eliminar Producto</a>
 	          <a class="dropdown-item" href="consultar-producto.html">Consultar Producto</a>
+	          <a class="dropdown-item" href="informe-inventario.php">Informe Inventario</a>
 	        </div>
 	      </li>
 	      <li class="nav-item">
@@ -63,10 +64,10 @@
 	  </div>
 
 	  <!--  form content -->
-	  <form class="calc__product container mt-2 mb-5 d-flex flex-column justify-content-center">
+	  <form action="eliminar-producto.php" class="calc__product container mt-2 mb-5 d-flex flex-column justify-content-center" method="post">
 	    <div class="form-group">
 	    	<label class="my-1 mr-2" for="inlineFormCustomSelectPref">Código</label>
-	    	<input type="text" class="form-control" aria-describedby="value" placeholder="Código de Producto" required>	      
+	    	<input name="code" type="text" class="form-control" aria-describedby="value" placeholder="Código de Producto" required>	      
 	    </div>
 	    <button type="submit" class="btn btn-primary product__button">Eliminar Producto</button>
 	  </form>

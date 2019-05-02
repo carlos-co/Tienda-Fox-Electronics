@@ -48,6 +48,7 @@ exec("mysqldump --user={$username} --password={$password} --host={$servername} {
  	          <a class="dropdown-item" href="actualizar-producto.html">Actualizar Producto</a>
  	          <a class="dropdown-item" href="eliminar-producto.html">Eliminar Producto</a>
  	          <a class="dropdown-item" href="consultar-producto.html">Consultar Producto</a>
+ 	          <a class="dropdown-item" href="informe-inventario.php">Informe Inventario</a>
  	        </div>
  	      </li>
  	      <li class="nav-item">
