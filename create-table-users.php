@@ -6,7 +6,7 @@ require 'config.php';
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Crear Tabla en Base de Datos</title>
+    <title>Crear Tabla Usuarios en Base de Datos</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -64,7 +64,7 @@ require 'config.php';
 	<!-- / Navbar content -->
 
 	<div class="container  mt-4">
-	  <h1>Crear Tabla en Base de Datos</h1>
+	  <h1>Crear Tabla Usuarios en Base de Datos</h1>
 	  <?php 
 
 	  	// Create connection
@@ -77,13 +77,11 @@ require 'config.php';
 	  	} 
 
 	  	// sql to create table
-	  	$sql = "CREATE TABLE tabla33 (
+	  	$sql = "CREATE TABLE usuarios (
 	  	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
-	  	code VARCHAR(30) NOT NULL,
-	  	name VARCHAR(30) NOT NULL,
-	  	brand VARCHAR(30) NOT NULL,
-	  	price INT(10) NOT NULL,
-	  	quantity INT(11) NOT NULL,
+	  	user_login varchar(60) NOT NULL,
+	  	user_pass varchar(255) NOT NULL,
+	  	user_status int(1) NOT NULL DEFAULT '1',
 	  	reg_date TIMESTAMP
 	  	)";
 

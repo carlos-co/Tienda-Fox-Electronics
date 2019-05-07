@@ -1,12 +1,8 @@
-<?php
-// Config File
-require 'config.php';
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Crear Tabla en Base de Datos</title>
+    <title>Registro de Nuevo Usuario  |Tienda Fox electronics</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -34,7 +30,7 @@ require 'config.php';
 	    	    <a class="dropdown-item" href="backup-database.php">Backup Base de Datos</a>
 	    	  </div>
 	    	</li>
-	      <li class="nav-item dropdown">
+	      <li class="nav-item dropdown active">
 	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	          Inventario
 	        </a>
@@ -61,46 +57,30 @@ require 'config.php';
 	    </ul>
 	  </div>
 	</nav>
+
 	<!-- / Navbar content -->
 
-	<div class="container  mt-4">
-	  <h1>Crear Tabla en Base de Datos</h1>
-	  <?php 
+	<div class="container mt-4">
+	  <h1>Registro de Nuevo Usuario</h1>
+	  <p class="mt-3">Ingrese la información de la cuenta:</p> 
+	  </div>
 
-	  	// Create connection
-	  	$conn = new mysqli($servername, $username, $password, $dbname);
-	  	// Check connection
-	  	if ($conn->connect_error) {
-	  		?>
-	  		<p><?php die("La conexión al servidor falló: " . $conn->connect_error); ?></p>
-	  	    <?php
-	  	} 
+	  <!--  form content -->
+	  <form action="registro-usuario.php" class="calc__product container mt-2 mb-5 d-flex flex-column justify-content-center" method="post">
+	    <div class="form-group">
+	    	<label class="my-1 mr-2" for="inlineFormCustomSelectPref">Nombre de usuario</label>
+	    	<input name="user_login" type="text" class="form-control" aria-describedby="value" placeholder="Nombre de usuario" required>	      
+	    </div>
+	    <div class="form-group">
+	    	<label class="my-1 mr-2" for="inlineFormCustomSelectPref">Contraseña</label>
+	    	<input name="user_pass" type="password" class="form-control" aria-describedby="value" placeholder="Contraseña" required>	      
+	    </div>
 
-	  	// sql to create table
-	  	$sql = "CREATE TABLE tabla33 (
-	  	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
-	  	code VARCHAR(30) NOT NULL,
-	  	name VARCHAR(30) NOT NULL,
-	  	brand VARCHAR(30) NOT NULL,
-	  	price INT(10) NOT NULL,
-	  	quantity INT(11) NOT NULL,
-	  	reg_date TIMESTAMP
-	  	)";
+	    <button type="submit" class="btn btn-primary product__button">Registrar Usuario</button>
+	  </form>
+	  <!-- / form content -->
 
-	  	if ($conn->query($sql) === TRUE) {
-	  		?>
-	  		<p><?php echo "Tabla creada con éxito en base de datos"; ?></p>
-	  		<?php
-	  	    
-	  	} else {
-	  		?>
-	  		<p><?php echo "Error al crear la tabla: " . $conn->error; ?></p>
-	  	    <?php
-	  	}
-
-	  	$conn->close();
-	  ?>
-	  
+	 
 	</div>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

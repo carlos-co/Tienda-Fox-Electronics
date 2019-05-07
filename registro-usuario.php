@@ -1,12 +1,30 @@
 <?php
 // Config File
 require 'config.php';
+
+if (isset($_POST['user_login']) && isset($_POST['user_pass']) ) {
+
+	// Create connection
+	$conn = new mysqli($servername, $username, $password, $dbname);
+	// Check connection
+	if ($conn->connect_error) {
+	    die("Connection failed: " . $conn->connect_error);
+	}
+
+	$user_login = $_POST ['user_login'];
+	$user_pass = $_POST ['user_pass'];
+
+	$salt='Lto7LuGzDYHQKPL/s*a7qL2D';
+	$saltedHash = md5($user_pass . $salt);
+
+	$sql = "INSERT INTO $tableusers (user_login, user_pass)
+	VALUES ('$user_login', '$saltedHash')";
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Crear Tabla en Base de Datos</title>
+    <title>Registro de Nuevo Usuario |Tienda Fox electronics</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -28,13 +46,10 @@ require 'config.php';
 	    	  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	    	    <a class="dropdown-item" href="create-database.php">Crear Base de Datos</a>
 	    	    <a class="dropdown-item" href="create-table.php">Crear Tabla en BD</a>
-	    	    <a class="dropdown-item" href="create-table-users.php">Crear Tabla Usuarios en BD</a>
-	    	    <a class="dropdown-item" href="registro-usuario.html">Registro Usuario</a>
-	    	    <a class="dropdown-item" href="inicio-sesion.html">Inicio de Sesión</a>
 	    	    <a class="dropdown-item" href="backup-database.php">Backup Base de Datos</a>
 	    	  </div>
 	    	</li>
-	      <li class="nav-item dropdown">
+	      <li class="nav-item dropdown active">
 	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	          Inventario
 	        </a>
@@ -61,46 +76,35 @@ require 'config.php';
 	    </ul>
 	  </div>
 	</nav>
+
 	<!-- / Navbar content -->
 
-	<div class="container  mt-4">
-	  <h1>Crear Tabla en Base de Datos</h1>
+	<div class="container mt-4">
+
 	  <?php 
+	  		//VALUES (023, Tenis, Nike, 120000, 1)
 
-	  	// Create connection
-	  	$conn = new mysqli($servername, $username, $password, $dbname);
-	  	// Check connection
-	  	if ($conn->connect_error) {
-	  		?>
-	  		<p><?php die("La conexión al servidor falló: " . $conn->connect_error); ?></p>
-	  	    <?php
-	  	} 
+	  		if ($conn->query($sql) === TRUE) {	  		    
+	  		   	?>
+	  		   	<h1><?php echo "Usuario Registrado"; ?></h1>
+	  		   	<p>Se guardo el usuario: <strong><?php echo $user_login ?></strong> en la base de datos</p>
+	  		   	<?php 
+	  		} else {
+	  			?>
+	  			<h1><?php echo "Error: " . $sql . "<br>" . $conn->error; ?></h1>
+	  			<?php	  		    
+	  		}
 
-	  	// sql to create table
-	  	$sql = "CREATE TABLE tabla33 (
-	  	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
-	  	code VARCHAR(30) NOT NULL,
-	  	name VARCHAR(30) NOT NULL,
-	  	brand VARCHAR(30) NOT NULL,
-	  	price INT(10) NOT NULL,
-	  	quantity INT(11) NOT NULL,
-	  	reg_date TIMESTAMP
-	  	)";
+	  		$conn->close();
 
-	  	if ($conn->query($sql) === TRUE) {
-	  		?>
-	  		<p><?php echo "Tabla creada con éxito en base de datos"; ?></p>
-	  		<?php
-	  	    
-	  	} else {
-	  		?>
-	  		<p><?php echo "Error al crear la tabla: " . $conn->error; ?></p>
-	  	    <?php
 	  	}
-
-	  	$conn->close();
-	  ?>
-	  
+	  	else {
+	  		?>
+	  		<h1>Error al enviar el formulario</h1>
+	  		<p>Verifique que ha completado todos los campos</p>
+	  		<?php	  		
+	  	}
+	  ?>				 
 	</div>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

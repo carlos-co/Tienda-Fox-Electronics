@@ -1,6 +1,7 @@
 <?php
 // Config File
 require 'config.php';
+require 'session.php';
 // fpdf lib
 require('lib/fpdf/fpdf.php');
 

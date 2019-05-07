@@ -21,13 +21,16 @@ require 'config.php';
 	  </button>
 	  <div class="collapse navbar-collapse" id="navbarNavDropdown">
 	    <ul class="navbar-nav">
-	    	<li class="nav-item dropdown active">
+	    	<li class="nav-item dropdown">
 	    	  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	    	    Administrador
 	    	  </a>
 	    	  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	    	    <a class="dropdown-item" href="create-database.php">Crear Base de Datos</a>
 	    	    <a class="dropdown-item" href="create-table.php">Crear Tabla en BD</a>
+	    	    <a class="dropdown-item" href="create-table-users.php">Crear Tabla Usuarios en BD</a>
+	    	    <a class="dropdown-item" href="registro-usuario.html">Registro Usuario</a>
+	    	    <a class="dropdown-item" href="inicio-sesion.html">Inicio de Sesión</a>
 	    	    <a class="dropdown-item" href="backup-database.php">Backup Base de Datos</a>
 	    	  </div>
 	    	</li>

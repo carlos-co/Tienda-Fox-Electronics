@@ -1,6 +1,7 @@
 <?php
 // Config File
 require 'config.php';
+require 'session.php';
 
 if (isset($_POST['code'])) {
 
@@ -42,8 +43,10 @@ if (isset($_POST['code'])) {
 	    	  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	    	    <a class="dropdown-item" href="create-database.php">Crear Base de Datos</a>
 	    	    <a class="dropdown-item" href="create-table.php">Crear Tabla en BD</a>
+	    	    <a class="dropdown-item" href="create-table-users.php">Crear Tabla Usuarios en BD</a>
+	    	    <a class="dropdown-item" href="registro-usuario.html">Registro Usuario</a>
+	    	    <a class="dropdown-item" href="inicio-sesion.html">Inicio de Sesión</a>
 	    	    <a class="dropdown-item" href="backup-database.php">Backup Base de Datos</a>
-	    	    <a class="dropdown-item" href="informe-inventario.php">Informe Inventario</a>
 	    	  </div>
 	    	</li>
 	      <li class="nav-item dropdown active">
@@ -71,6 +74,7 @@ if (isset($_POST['code'])) {
 	      </li>
 	    </ul>
 	  </div>
+	  <span class="navbar-text"><?php echo "@" . $_SESSION["user_login"] . " su sesión finaliza a las: ".$session_time; ?></span>
 	</nav>
 
 	<!-- / Navbar content -->

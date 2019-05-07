@@ -31,7 +31,7 @@ CREATE TABLE `tabla33` (
   `quantity` int(11) NOT NULL,
   `reg_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,8 +40,34 @@ CREATE TABLE `tabla33` (
 
 LOCK TABLES `tabla33` WRITE;
 /*!40000 ALTER TABLE `tabla33` DISABLE KEYS */;
-INSERT INTO `tabla33` VALUES (1,'35677jk','Speakers','KRK Systems',2800000,6,'2019-05-02 00:23:28');
 /*!40000 ALTER TABLE `tabla33` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `usuarios`
+--
+
+DROP TABLE IF EXISTS `usuarios`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `usuarios` (
+  `id` int(6) unsigned NOT NULL AUTO_INCREMENT,
+  `user_login` varchar(60) NOT NULL,
+  `user_pass` varchar(255) NOT NULL,
+  `user_status` int(1) NOT NULL DEFAULT '1',
+  `reg_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuarios`
+--
+
+LOCK TABLES `usuarios` WRITE;
+/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
+INSERT INTO `usuarios` VALUES (1,'carlos212','fd8f480b4c54a148aa7f1665e52ebdec',1,'2019-05-07 13:59:54'),(2,'camilo','d8754add059459f34fc95ceaddcc4abf',1,'2019-05-07 13:47:16');
+/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +79,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-01 19:24:12
+-- Dump completed on 2019-05-07 10:32:23

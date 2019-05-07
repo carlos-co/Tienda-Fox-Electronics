@@ -1,12 +1,27 @@
 <?php
 // Config File
 require 'config.php';
+
+if (isset($_POST['user_login']) && isset($_POST['user_pass']) ) {
+
+	// Create connection
+	$conn = new mysqli($servername, $username, $password, $dbname);
+	// Check connection
+	if ($conn->connect_error) {
+	    die("Connection failed: " . $conn->connect_error);
+	} 
+	
+	$user_login = $_POST ['user_login'];
+	$user_pass = $_POST ['user_pass'];
+
+	$salt='Lto7LuGzDYHQKPL/s*a7qL2D';
+	$saltedHash = md5($user_pass . $salt);
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Crear Tabla en Base de Datos</title>
+    <title>Panel de Control |Tienda Fox electronics</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -34,7 +49,7 @@ require 'config.php';
 	    	    <a class="dropdown-item" href="backup-database.php">Backup Base de Datos</a>
 	    	  </div>
 	    	</li>
-	      <li class="nav-item dropdown">
+	      <li class="nav-item dropdown active">
 	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	          Inventario
 	        </a>
@@ -61,50 +76,70 @@ require 'config.php';
 	    </ul>
 	  </div>
 	</nav>
+
 	<!-- / Navbar content -->
 
-	<div class="container  mt-4">
-	  <h1>Crear Tabla en Base de Datos</h1>
+	<div class="container mt-4">
 	  <?php 
+	  	$sql = "SELECT user_login, user_pass, user_status, reg_date FROM $tableusers WHERE user_login = '$user_login'";
+	  		$result = $conn->query($sql);
 
-	  	// Create connection
-	  	$conn = new mysqli($servername, $username, $password, $dbname);
-	  	// Check connection
-	  	if ($conn->connect_error) {
-	  		?>
-	  		<p><?php die("La conexión al servidor falló: " . $conn->connect_error); ?></p>
-	  	    <?php
-	  	} 
+	  		if ($result->num_rows > 0) {
+	  			$row = $result->fetch_assoc();
+	  			
+	  			if ( $saltedHash === $row["user_pass"]) {
+	  				//echo $saltedHash . " = " . $row["user_pass"];
+	  				if ($row["user_status"] == 1) {
 
-	  	// sql to create table
-	  	$sql = "CREATE TABLE tabla33 (
-	  	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
-	  	code VARCHAR(30) NOT NULL,
-	  	name VARCHAR(30) NOT NULL,
-	  	brand VARCHAR(30) NOT NULL,
-	  	price INT(10) NOT NULL,
-	  	quantity INT(11) NOT NULL,
-	  	reg_date TIMESTAMP
-	  	)";
+	  					session_start();
 
-	  	if ($conn->query($sql) === TRUE) {
-	  		?>
-	  		<p><?php echo "Tabla creada con éxito en base de datos"; ?></p>
-	  		<?php
-	  	    
-	  	} else {
-	  		?>
-	  		<p><?php echo "Error al crear la tabla: " . $conn->error; ?></p>
-	  	    <?php
+	  					$_SESSION["session_expires"] = time() + $maximum_user_session;
+	  					$_SESSION["user_login"] = $row["user_login"];
+	  					$session_time = date('H:i A', $_SESSION['session_expires']); 
+
+	  					?>
+	  						<h1>Panel de Control</h1>
+	  						<p>Bienvenido <strong><?php echo $row["user_login"]; ?></strong> al Panel de Control </p>
+	  						<p><?php echo "Su sesión finaliza a las: ".$session_time; ?></p>				 
+	  					<?php 
+	  				}
+	  				else {
+	  					?>
+	  						<h1>Error Inicio de Sesión</h1>
+	  					    <p>La cuenta: <strong><?php echo $row["user_login"]; ?></strong> fue inhabilitada por el administrador</p>
+	  					<?php 
+	  				}
+	  			}
+	  			else {
+	  				?>
+	  					<h1>Error Inicio de Sesión</h1>
+	  				    <p>Error de Inicio de sesión verifique el usuario y la contraseña</p>
+	  				<?php    
+	  			}	
+
+	  			?>	  			
+	  			
+	  		<?php 
+	  		} else {
+	  			?>
+	  			<h1>Error Inicio de Sesión</h1>
+	  		    <p>Error de Inicio de sesión verifique el usuario y la contraseña</p>
+	  		<?php    
+	  		}
+	  		$conn->close();
+
+	  	}
+	  	else {
+	  		echo "Error al enviar el formulario";
 	  	}
 
-	  	$conn->close();
-	  ?>
-	  
+	  ?>	
+
+	 
 	</div>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script src="js/main.js"></script>
 </body>
-</html>
+</html>	
