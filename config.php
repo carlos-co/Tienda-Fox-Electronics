@@ -1,6 +1,6 @@
 <?php
 date_default_timezone_set('America/Bogota');
-$servername = "programacion-sitios-mysql-server";
+$servername = "localhost";
 $username = "root";
 $password = "12345678";
 $dbname = "bdunad33";
